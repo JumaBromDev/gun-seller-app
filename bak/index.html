@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Button Value App</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 50px;
+      }
+      .buttons {
+        margin-top: 20px;
+      }
+      button {
+        margin: 5px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      #total {
+        font-size: 24px;
+        margin-top: 20px;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Button Value App</h1>
+    <p>Click the buttons to add their values to the total:</p>
+
+    <div class="buttons" id="buttons-container">
+      <!-- Buttons will be dynamically added here -->
+    </div>
+
+    <div id="total">Total Value: 0</div>
+
+    <script>
+      const buttonContainer = document.getElementById("buttons-container");
+      const totalDisplay = document.getElementById("total");
+      let totalValue = 0;
+
+      // Generate 30 buttons with increasing values
+      for (let i = 1; i <= 30; i++) {
+        const button = document.createElement("button");
+        button.textContent = `Button ${i} (Value: ${i * 10})`;
+        button.value = i * 10; // Set the button value
+        button.toggleState = true; // Initial toggle state: true means add, false means subtract
+
+        button.onclick = () => {
+          if (button.toggleState) {
+            totalValue += parseInt(button.value); // Add value
+          } else {
+            totalValue -= parseInt(button.value); // Subtract value
+          }
+          totalDisplay.textContent = `Total Value: ${totalValue}`;
+          button.toggleState = !button.toggleState; // Toggle state
+        };
+
+        buttonContainer.appendChild(button);
+      }
+    </script>
+  </body>
+</html>

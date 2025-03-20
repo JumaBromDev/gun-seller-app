@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gun Seller App</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 50px;
+      }
+      .buttons {
+        margin-top: 20px;
+      }
+      .button-container {
+        display: inline-block;
+        position: relative;
+        margin: 5px;
+      }
+      .button-container .sold-label {
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: red;
+        color: white;
+        font-size: 12px;
+        padding: 2px 5px;
+        border-radius: 3px;
+        display: none;
+      }
+      .button-container .sold-label.active {
+        display: block;
+      }
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+      #total {
+        font-size: 24px;
+        margin-top: 20px;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Gun Sales simulator</h1>
+    <p>Click the buttons to simulate income from sales</p>
+
+    <div class="buttons" id="buttons-container">
+      {% for button in buttons %}
+      <div class="button-container">
+        <div class="sold-label">SOLD</div>
+        <button value="{{ button.value }}" onclick="toggleValue(this)">
+          {{ button.text }}
+        </button>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div id="total">Total Value: 0</div>
+
+    <script>
+      let totalValue = 0;
+      const totalDisplay = document.getElementById("total");
+
+      function toggleValue(button) {
+        const soldLabel = button.parentElement.querySelector(".sold-label");
+        // Toggle between adding and subtracting the value
+        if (!button.toggleState) {
+          totalValue += parseInt(button.value); // Add value
+          soldLabel.classList.add("active"); // Show "SOLD" label
+        } else {
+          totalValue -= parseInt(button.value); // Subtract value
+          soldLabel.classList.remove("active"); // Hide "SOLD" label
+        }
+        button.toggleState = !button.toggleState; // Toggle state
+        totalDisplay.textContent = `Total Value: ${totalValue}`;
+      }
+    </script>
+  </body>
+</html>

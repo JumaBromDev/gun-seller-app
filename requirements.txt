@@ -1,5 +1,4 @@
 gunicorn
-apturl==0.5.2
 asgiref==3.7.2
 Babel==2.10.3
 beautifulsoup4==4.12.3
